@@ -8,7 +8,7 @@ require_once "functions.php";
 
 Authorisation();
 
-// Получили параметры из формы
+// РџРѕР»СѓС‡РёР»Рё РїР°СЂР°РјРµС‚СЂС‹ РёР· С„РѕСЂРјС‹
 $ShortName=$_REQUEST['ShortName'];
 $FullName=$_REQUEST['FullName'];
 $Email=$_REQUEST['Email'];
@@ -27,19 +27,19 @@ if ( !empty($Area_compare) || !empty($Area) )
       { $str=$Area;
       	settype($str, "integer");
       	settype($str, "string");
-        if ($str!=$Area) $Error=$Error.'Значение поля "Занимаемая площадь" не является целым числом или не заполнено<br>';
-        if ( empty($Area_compare) ) $Error=$Error.'Не выбран оператор сравнения для поля "Занимаемая площадь"<br>';
+        if ($str!=$Area) $Error=$Error.'Р—РЅР°С‡РµРЅРёРµ РїРѕР»СЏ "Р—Р°РЅРёРјР°РµРјР°СЏ РїР»РѕС‰Р°РґСЊ" РЅРµ СЏРІР»СЏРµС‚СЃСЏ С†РµР»С‹Рј С‡РёСЃР»РѕРј РёР»Рё РЅРµ Р·Р°РїРѕР»РЅРµРЅРѕ<br>';
+        if ( empty($Area_compare) ) $Error=$Error.'РќРµ РІС‹Р±СЂР°РЅ РѕРїРµСЂР°С‚РѕСЂ СЃСЂР°РІРЅРµРЅРёСЏ РґР»СЏ РїРѕР»СЏ "Р—Р°РЅРёРјР°РµРјР°СЏ РїР»РѕС‰Р°РґСЊ"<br>';
       }
 
 if ( !empty($Wokers_compare) || !empty($Wokers) )
       { $str=$Wokers;
       	settype($str, "integer");
       	settype($str, "string");
-        if ($str!=$Wokers) $Error=$Error.'Значение поля "Колличество сотрудников" не является целым числом или не заполнено<br>';
-        if ( empty($Wokers_compare) ) $Error=$Error.'Не выбран оператор сравнения для поля "Колличество сотрудников"<br>';
+        if ($str!=$Wokers) $Error=$Error.'Р—РЅР°С‡РµРЅРёРµ РїРѕР»СЏ "РљРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ" РЅРµ СЏРІР»СЏРµС‚СЃСЏ С†РµР»С‹Рј С‡РёСЃР»РѕРј РёР»Рё РЅРµ Р·Р°РїРѕР»РЅРµРЅРѕ<br>';
+        if ( empty($Wokers_compare) ) $Error=$Error.'РќРµ РІС‹Р±СЂР°РЅ РѕРїРµСЂР°С‚РѕСЂ СЃСЂР°РІРЅРµРЅРёСЏ РґР»СЏ РїРѕР»СЏ "РљРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ"<br>';
       }
 
-// Если были допущены ошибки при заполнении формы или изменении записи в базе, то отправляем на форму введенные поля
+// Р•СЃР»Рё Р±С‹Р»Рё РґРѕРїСѓС‰РµРЅС‹ РѕС€РёР±РєРё РїСЂРё Р·Р°РїРѕР»РЅРµРЅРёРё С„РѕСЂРјС‹ РёР»Рё РёР·РјРµРЅРµРЅРёРё Р·Р°РїРёСЃРё РІ Р±Р°Р·Рµ, С‚Рѕ РѕС‚РїСЂР°РІР»СЏРµРј РЅР° С„РѕСЂРјСѓ РІРІРµРґРµРЅРЅС‹Рµ РїРѕР»СЏ
 if ( !empty($Error) )
 {
 $_SESSION['search']=array();
@@ -61,31 +61,31 @@ header ("Location: search_form.php");
 die();
 }
 
-// Создание запроса по $Object_ID
+// РЎРѕР·РґР°РЅРёРµ Р·Р°РїСЂРѕСЃР° РїРѕ $Object_ID
 $Object_ID_Query=" and (object_type.object_id like '%".$Object_ID[0]."%'";
 for ($i=1; $i<sizeof($Object_ID)-1; $i++)
    $Object_ID_Query=$Object_ID_Query." or object_type.object_id like '%".$Object_ID[$i]."%'";
 $Object_ID_Query=$Object_ID_Query.")";
 
-// Создание запроса по $Factory_ID
+// РЎРѕР·РґР°РЅРёРµ Р·Р°РїСЂРѕСЃР° РїРѕ $Factory_ID
 $Factory_ID_Query=" and (factory_type.factory_id like '%".$Factory_ID[0]."%'";
 for ($j=1; $j<sizeof($Factory_ID)-1; $j++)
    $Factory_ID_Query=$Factory_ID_Query." or factory_type.factory_id like '%".$Factory_ID[$j]."%'";
 $Factory_ID_Query=$Factory_ID_Query.")";
 
-// Поиск введенного значения в базе
+// РџРѕРёСЃРє РІРІРµРґРµРЅРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ РІ Р±Р°Р·Рµ
 $result=search_in_base ($ShortName, $FullName, $Email, $WWW, $Object_ID_Query, $Factory_ID_Query, $Area, $Wokers, $Production, $Area_compare, $Wokers_compare);
 
-// Получаем данные из базы в массив $data.
+// РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РёР· Р±Р°Р·С‹ РІ РјР°СЃСЃРёРІ $data.
 for ($data=array(); $row=mssql_fetch_assoc($result); $data[]=$row);
 
-// Вывод карточки на экран в виде таблицы
-echo "<h1>По Вашему запросу найдено ".sizeof($data)." записей в базе</h1>";
+// Р’С‹РІРѕРґ РєР°СЂС‚РѕС‡РєРё РЅР° СЌРєСЂР°РЅ РІ РІРёРґРµ С‚Р°Р±Р»РёС†С‹
+echo "<h1>РџРѕ Р’Р°С€РµРјСѓ Р·Р°РїСЂРѕСЃСѓ РЅР°Р№РґРµРЅРѕ ".sizeof($data)." Р·Р°РїРёСЃРµР№ РІ Р±Р°Р·Рµ</h1>";
 if (sizeof($data)==0)
    { echo '<table border="0">';
      echo '<tr>';
-     echo '   <td><form action="main.php"><input type=submit value="На главную"></form></td>';
-     echo '   <td><form action="search_form.php"><input type=submit value="Новый поиск"></form></td>';
+     echo '   <td><form action="main.php"><input type=submit value="РќР° РіР»Р°РІРЅСѓСЋ"></form></td>';
+     echo '   <td><form action="search_form.php"><input type=submit value="РќРѕРІС‹Р№ РїРѕРёСЃРє"></form></td>';
      echo '</tr>';
      echo '</table>';
    }
@@ -96,11 +96,11 @@ for ($k=0; $k<sizeof($data); $k++)
    echo '<br>';
    echo '<table width="550" border="0">';
    echo '<tr>';
-   echo '   <td><form action="main.php"><input type=submit value="На главную"></form></td>';
-   echo '   <td><form action="search_script_selection.php"><input type=submit value="Изменить"><input type=hidden name="id_key" value="'.$data[$k]['id_key'].'"></form></td>';
-   echo '   <td><form action="delete_script.php"><input type=hidden name="id_key" value="'.$data[$k]['id_key'].'"><input type=submit value="Удалить"></form></td>';
-   echo '   <td><form action="print_form.php" target="_blank"><input type=hidden name="id_key" value="'.$data[$k]['id_key'].'"><input type=submit value="Версия для печати"></form></td>';
-   echo '   <td><form action="email_form.php"><input type=hidden name="id_key" value="'.$data[$k]['id_key'].'"><input type=submit value="Отправить по e-mail"></form></td>';
+   echo '   <td><form action="main.php"><input type=submit value="РќР° РіР»Р°РІРЅСѓСЋ"></form></td>';
+   echo '   <td><form action="search_script_selection.php"><input type=submit value="РР·РјРµРЅРёС‚СЊ"><input type=hidden name="id_key" value="'.$data[$k]['id_key'].'"></form></td>';
+   echo '   <td><form action="delete_script.php"><input type=hidden name="id_key" value="'.$data[$k]['id_key'].'"><input type=submit value="РЈРґР°Р»РёС‚СЊ"></form></td>';
+   echo '   <td><form action="print_form.php" target="_blank"><input type=hidden name="id_key" value="'.$data[$k]['id_key'].'"><input type=submit value="Р’РµСЂСЃРёСЏ РґР»СЏ РїРµС‡Р°С‚Рё"></form></td>';
+   echo '   <td><form action="email_form.php"><input type=hidden name="id_key" value="'.$data[$k]['id_key'].'"><input type=submit value="РћС‚РїСЂР°РІРёС‚СЊ РїРѕ e-mail"></form></td>';
    echo '</tr>';
    echo '</table><br>';
 }

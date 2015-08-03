@@ -5,7 +5,7 @@ function send_email($to, $text)
 $login="xexys";
 $pass="21x1e2x1y9s83";
 $from="xexys@mail.ru";
-$subject="Subject: =?windows-1251?Q?".str_replace("+","_",str_replace("%","=",urlencode('Информация о записе в базе данных (XML формат)')))."?=\r\n";
+$subject="Subject: =?windows-1251?Q?".str_replace("+","_",str_replace("%","=",urlencode('РРЅС„РѕСЂРјР°С†РёСЏ Рѕ Р·Р°РїРёСЃРµ РІ Р±Р°Р·Рµ РґР°РЅРЅС‹С… (XML С„РѕСЂРјР°С‚)')))."?=\r\n";
 
 $header="From: ".$from."\r\n";
 $header.="To: ".$to."\r\n";
@@ -24,40 +24,40 @@ return $data;
 }
 
 $smtp_conn = fsockopen("smtp.mail.ru", 25,$errno, $errstr, 10);
-if(!$smtp_conn) {print "Соединение с серверов не прошло"; fclose($smtp_conn); exit;}
+if(!$smtp_conn) {print "РЎРѕРµРґРёРЅРµРЅРёРµ СЃ СЃРµСЂРІРµСЂРѕРІ РЅРµ РїСЂРѕС€Р»Рѕ"; fclose($smtp_conn); exit;}
 $data = get_data($smtp_conn);
 
 fputs($smtp_conn,"EHLO mail.ru\r\n");
 $code = substr(get_data($smtp_conn),0,3);
-if($code != 250) {print "Ошибка приветсвия EHLO"; fclose($smtp_conn); exit;}
+if($code != 250) {print "РћС€РёР±РєР° РїСЂРёРІРµС‚СЃРІРёСЏ EHLO"; fclose($smtp_conn); exit;}
 
 fputs($smtp_conn,"AUTH LOGIN\r\n");
 $code = substr(get_data($smtp_conn),0,3);
-if($code != 334) {print "Сервер не разрешил начать авторизацию"; fclose($smtp_conn); exit;}
+if($code != 334) {print "РЎРµСЂРІРµСЂ РЅРµ СЂР°Р·СЂРµС€РёР» РЅР°С‡Р°С‚СЊ Р°РІС‚РѕСЂРёР·Р°С†РёСЋ"; fclose($smtp_conn); exit;}
 
 fputs($smtp_conn,base64_encode($login)."\r\n");
 $code = substr(get_data($smtp_conn),0,3);
-if($code != 334) {print "Ошибка доступа к такому юзеру"; fclose($smtp_conn); exit;}
+if($code != 334) {print "РћС€РёР±РєР° РґРѕСЃС‚СѓРїР° Рє С‚Р°РєРѕРјСѓ СЋР·РµСЂСѓ"; fclose($smtp_conn); exit;}
 
 fputs($smtp_conn,base64_encode($pass)."\r\n");
 $code = substr(get_data($smtp_conn),0,3);
-if($code != 235) {print "Неправильный пароль"; fclose($smtp_conn); exit;}
+if($code != 235) {print "РќРµРїСЂР°РІРёР»СЊРЅС‹Р№ РїР°СЂРѕР»СЊ"; fclose($smtp_conn); exit;}
 
 fputs($smtp_conn,"MAIL FROM:".$from."\r\n");
 $code = substr(get_data($smtp_conn),0,3);
-if($code != 250) {print "Сервер отказал в команде MAIL FROM"; fclose($smtp_conn); exit;}
+if($code != 250) {print "РЎРµСЂРІРµСЂ РѕС‚РєР°Р·Р°Р» РІ РєРѕРјР°РЅРґРµ MAIL FROM"; fclose($smtp_conn); exit;}
 
 fputs($smtp_conn,"RCPT TO:".$to."\r\n");
 $code = substr(get_data($smtp_conn),0,3);
-if($code != 250 AND $code != 251) {print "Сервер не принял команду RCPT TO"; fclose($smtp_conn); exit;}
+if($code != 250 AND $code != 251) {print "РЎРµСЂРІРµСЂ РЅРµ РїСЂРёРЅСЏР» РєРѕРјР°РЅРґСѓ RCPT TO"; fclose($smtp_conn); exit;}
 
 fputs($smtp_conn,"DATA\r\n");
 $code = substr(get_data($smtp_conn),0,3);
-if($code != 354) {print "Сервер не принял DATA"; fclose($smtp_conn); exit;}
+if($code != 354) {print "РЎРµСЂРІРµСЂ РЅРµ РїСЂРёРЅСЏР» DATA"; fclose($smtp_conn); exit;}
 
 fputs($smtp_conn,$header."\r\n".$text."\r\n.\r\n");
 $code = substr(get_data($smtp_conn),0,3);
-if($code != 250) {print "Ошибка отправки письма"; fclose($smtp_conn); exit;}
+if($code != 250) {print "РћС€РёР±РєР° РѕС‚РїСЂР°РІРєРё РїРёСЃСЊРјР°"; fclose($smtp_conn); exit;}
 
 fputs($smtp_conn,"QUIT\r\n");
 fclose($smtp_conn);
@@ -66,14 +66,14 @@ fclose($smtp_conn);
 ?>
 
 <?php
-// Проверка существования и вход в базу
+// РџСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ Рё РІС…РѕРґ РІ Р±Р°Р·Сѓ
 function Authorisation()
 {
 @session_start();
 $user = $_SESSION['authorisation']['login'];
 $pass = $_SESSION['authorisation']['password'];
 $db = "first";
-// Подключаемся к СУБД MySQL.
+// РџРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє РЎРЈР‘Р” MySQL.
 if ( mssql_connect("localhost", $user, $pass)==true )
    { if ( mssql_select_db($db)==false )
         { header ("Location: authorisation.php");
@@ -91,7 +91,7 @@ else
 <?php
 function find_by_key ($id_key)
 {
-// Проверка существования и уникальности записи по первичному ключу
+// РџСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ Рё СѓРЅРёРєР°Р»СЊРЅРѕСЃС‚Рё Р·Р°РїРёСЃРё РїРѕ РїРµСЂРІРёС‡РЅРѕРјСѓ РєР»СЋС‡Сѓ
 $query="SELECT card_data.id_key, shortname, fullname, email, web, area, wokers, production, factory_value, object_value, factory_type.factory_id, object_type.object_id";
 $query=$query." FROM card_data, card_characteristics, factory_type, object_type";
 $query=$query." WHERE card_data.id_key=card_characteristics.id_key and card_characteristics.factory_id=factory_type.factory_id and card_characteristics.object_id=object_type.object_id";
@@ -102,9 +102,10 @@ return mssql_query($query);
 
 <?php
 function convert2xml($id_key)
-{$result=find_by_key ($id_key);
+{
+$result=find_by_key ($id_key);
 
-// Получаем данные из базы в массив $data.
+// РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РёР· Р±Р°Р·С‹ РІ РјР°СЃСЃРёРІ $data.
 for ($data=array(); $row=mssql_fetch_assoc($result); $data[]=$row);
 
 $xml= '<?xml version="1.0" encoding="windows-1251" ?>'."\r\n";
@@ -119,13 +120,15 @@ for ($i=0; $i<count($data); $i++)
   $xml.= "  </row>\r\n";
 }
 $xml.= "</root>\r\n";
-return $xml;}
+return $xml;
+}
 ?>
 
 <?php
 function search_in_base ($ShortName="", $FullName="", $Email="", $WWW="", $Object_ID_Query, $Factory_ID_Query, $Area="", $Wokers="", $Production="",
 $Area_compare="", $Wokers_compare="")
-{$query="SELECT card_data.id_key, shortname, fullname, email, web, area, wokers, production, factory_value, object_value, factory_type.factory_id, object_type.object_id";
+{
+$query="SELECT card_data.id_key, shortname, fullname, email, web, area, wokers, production, factory_value, object_value, factory_type.factory_id, object_type.object_id";
 $query=$query." FROM card_data, card_characteristics, factory_type, object_type";
 $query=$query." WHERE card_data.id_key=card_characteristics.id_key and card_characteristics.factory_id=factory_type.factory_id and card_characteristics.object_id=object_type.object_id";
 $query=$query." and card_data.shortname like '%".$ShortName."%'";
@@ -142,14 +145,15 @@ return mssql_query($query);
 ?>
 
 <?php
-// Изменение в базе
+// РР·РјРµРЅРµРЅРёРµ РІ Р±Р°Р·Рµ
 function update_base($id_key, $new_id_key, $ShortName, $FullName, $Email, $WWW, $Object_ID, $Factory_ID, $Area, $Wokers, $Production)
 {
 $query="UPDATE card_data ";
 $query=$query."SET id_key='".$new_id_key."', ShortName='".$ShortName."', FullName='".$FullName."', Email='".$Email."', Web='".$WWW."'";
 $query=$query." WHERE id_key='".$id_key."'";
 if (mssql_query($query)==true)
-{$query="UPDATE card_characteristics ";
+{
+$query="UPDATE card_characteristics ";
 $query=$query."SET Object_ID='".$Object_ID."', Factory_ID='".$Factory_ID."', Area='".$Area."', Wokers='".$Wokers."', Production='".$Production."'";
 $query=$query." WHERE id_key='".$new_id_key."'";
 mssql_query($query);
@@ -160,7 +164,7 @@ else return false;
 ?>
 
 <?php
-// Удаление из базы
+// РЈРґР°Р»РµРЅРёРµ РёР· Р±Р°Р·С‹
 function delete_from_base($id_key)
 {
 $query="DELETE FROM card_data WHERE id_key='".$id_key."'";
@@ -171,7 +175,7 @@ if (mssql_query ($query)==true) return true;
 ?>
 
 <?php
-//Добавление в базу
+//Р”РѕР±Р°РІР»РµРЅРёРµ РІ Р±Р°Р·Сѓ
 function insert_in_base ($id_key, $ShortName, $FullName, $Email, $WWW, $Object_ID, $Factory_ID, $Area, $Wokers, $Production)
 {
 $query="INSERT INTO card_data VALUES ('".$id_key."',";
@@ -195,44 +199,44 @@ else return false;
 ?>
 
 <?php
-// Функция выводит таблицу с заголовком и данными
+// Р¤СѓРЅРєС†РёСЏ РІС‹РІРѕРґРёС‚ С‚Р°Р±Р»РёС†Сѓ СЃ Р·Р°РіРѕР»РѕРІРєРѕРј Рё РґР°РЅРЅС‹РјРё
 function view ($ShortName, $FullName, $Email, $WWW, $Object_Value, $Factory_Value, $Area, $Wokers, $Production)
 {
 echo '<table width="550" border="1">';
 echo '<tr>';
-echo '   <td width="250"><b>Краткое наименование</b></td>';
+echo '   <td width="250"><b>РљСЂР°С‚РєРѕРµ РЅР°РёРјРµРЅРѕРІР°РЅРёРµ</b></td>';
 echo '   <td width="300">'.$ShortName.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td valign="top"><b>Полное название</b></td>';
+echo '   <td valign="top"><b>РџРѕР»РЅРѕРµ РЅР°Р·РІР°РЅРёРµ</b></td>';
 echo '   <td>'.$FullName.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Електронная почта</b></td>';
+echo '   <td><b>Р•Р»РµРєС‚СЂРѕРЅРЅР°СЏ РїРѕС‡С‚Р°</b></td>';
 echo '   <td>'.$Email.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Оффициальный сайт</b></td>';
+echo '   <td><b>РћС„С„РёС†РёР°Р»СЊРЅС‹Р№ СЃР°Р№С‚</b></td>';
 echo '   <td><a href="'.$WWW.'" target="_blank">'.$WWW.'</a></td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Тип объекта</b></td>';
+echo '   <td><b>РўРёРї РѕР±СЉРµРєС‚Р°</b></td>';
 echo '   <td>'.$Object_Value.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Тип производства</b></td>';
+echo '   <td><b>РўРёРї РїСЂРѕРёР·РІРѕРґСЃС‚РІР°</b></td>';
 echo '   <td>'.$Factory_Value.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Занимаемая площадь</b></td>';
-echo '   <td>'.$Area.'м<sup>2</sup></td>';
+echo '   <td><b>Р—Р°РЅРёРјР°РµРјР°СЏ РїР»РѕС‰Р°РґСЊ</b></td>';
+echo '   <td>'.$Area.'Рј<sup>2</sup></td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Колличество сотрудников</b></td>';
+echo '   <td><b>РљРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ</b></td>';
 echo '   <td>'.$Wokers.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td valign="top"><b>Производимая продукция</b></td>';
+echo '   <td valign="top"><b>РџСЂРѕРёР·РІРѕРґРёРјР°СЏ РїСЂРѕРґСѓРєС†РёСЏ</b></td>';
 echo '   <td>'.$Production.'</td>';
 echo '</tr>';
 echo '</table>';
@@ -240,44 +244,44 @@ echo '</table>';
 ?>
 
 <?php
-// Функция выводит таблицу с заголовком и данными для печати
+// Р¤СѓРЅРєС†РёСЏ РІС‹РІРѕРґРёС‚ С‚Р°Р±Р»РёС†Сѓ СЃ Р·Р°РіРѕР»РѕРІРєРѕРј Рё РґР°РЅРЅС‹РјРё РґР»СЏ РїРµС‡Р°С‚Рё
 function print_view ($ShortName, $FullName, $Email, $WWW, $Object_Value, $Factory_Value, $Area, $Wokers, $Production)
 {
 echo '<table width="550" border="1" cellpadding="5" cellspacing="0" bordercolorlight="black" bordercolordark="white">';
 echo '<tr>';
-echo '   <td width="250"><b>Краткое наименование</b></td>';
+echo '   <td width="250"><b>РљСЂР°С‚РєРѕРµ РЅР°РёРјРµРЅРѕРІР°РЅРёРµ</b></td>';
 echo '   <td width="300">'.$ShortName.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td valign="top"><b>Полное название</b></td>';
+echo '   <td valign="top"><b>РџРѕР»РЅРѕРµ РЅР°Р·РІР°РЅРёРµ</b></td>';
 echo '   <td>'.$FullName.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Електронная почта</b></td>';
+echo '   <td><b>Р•Р»РµРєС‚СЂРѕРЅРЅР°СЏ РїРѕС‡С‚Р°</b></td>';
 echo '   <td>'.$Email.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Оффициальный сайт</b></td>';
+echo '   <td><b>РћС„С„РёС†РёР°Р»СЊРЅС‹Р№ СЃР°Р№С‚</b></td>';
 echo '   <td>'.$WWW.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Тип объекта</b></td>';
+echo '   <td><b>РўРёРї РѕР±СЉРµРєС‚Р°</b></td>';
 echo '   <td>'.$Object_Value.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Тип производства</b></td>';
+echo '   <td><b>РўРёРї РїСЂРѕРёР·РІРѕРґСЃС‚РІР°</b></td>';
 echo '   <td>'.$Factory_Value.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Занимаемая площадь</b></td>';
-echo '   <td>'.$Area.'м<sup>2</sup></td>';
+echo '   <td><b>Р—Р°РЅРёРјР°РµРјР°СЏ РїР»РѕС‰Р°РґСЊ</b></td>';
+echo '   <td>'.$Area.'Рј<sup>2</sup></td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td><b>Колличество сотрудников</b></td>';
+echo '   <td><b>РљРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ</b></td>';
 echo '   <td>'.$Wokers.'</td>';
 echo '</tr>';
 echo '<tr>';
-echo '   <td valign="top"><b>Производимая продукция</b></td>';
+echo '   <td valign="top"><b>РџСЂРѕРёР·РІРѕРґРёРјР°СЏ РїСЂРѕРґСѓРєС†РёСЏ</b></td>';
 echo '   <td>'.$Production.'</td>';
 echo '</tr>';
 echo '</table>';

@@ -15,9 +15,9 @@ $_SESSION['authorisation']['password']=$_REQUEST['password'];
 
 Authorisation();
 
-echo '<h1><a href="add_form.php">Добавить данные</a></h1>';
-echo '<h1><a href="search_form.php">Поиск</a></h1><br>';
-echo '<form action="authorisation.php"><input type=submit value="Выйти из базы"></form>';
+echo '<h1><a href="add_form.php">Р”РѕР±Р°РІРёС‚СЊ РґР°РЅРЅС‹Рµ</a></h1>';
+echo '<h1><a href="search_form.php">РџРѕРёСЃРє</a></h1><br>';
+echo '<form action="authorisation.php"><input type=submit value="Р’С‹Р№С‚Рё РёР· Р±Р°Р·С‹"></form>';
 ?>
 
 <?php

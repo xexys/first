@@ -2,7 +2,7 @@
 
 <HTML>
 <HEAD>
-<title>База данных критически-важных объектов (КВО)</title>
+<title>Р‘Р°Р·Р° РґР°РЅРЅС‹С… РєСЂРёС‚РёС‡РµСЃРєРё-РІР°Р¶РЅС‹С… РѕР±СЉРµРєС‚РѕРІ (РљР’Рћ)</title>
   <meta http-equiv=Content-Type content="text/html; charset=windows-1251">
   <link rel="shortcut icon" href="favicon.ico">
 </HEAD>

@@ -13,27 +13,27 @@ $id_key=$_REQUEST['id_key'];
 if ( isset($_POST['to']) )
 {
 $Email=$_POST['to'];
-if ( empty($Email) ) $Error=$Error.'Адрес получателя не указан<br>';
-   else if ( !preg_match( "#^[0-9a-z_\-\.]+@[0-9a-z\-\.]+\.[a-z]{2,6}$#i", $Email ) ) $Error=$Error.'Адрес e-mail должен соответствовать формату somebody@somewhere.ru<br>';
+if ( empty($Email) ) $Error=$Error.'РђРґСЂРµСЃ РїРѕР»СѓС‡Р°С‚РµР»СЏ РЅРµ СѓРєР°Р·Р°РЅ<br>';
+   else if ( !preg_match( "#^[0-9a-z_\-\.]+@[0-9a-z\-\.]+\.[a-z]{2,6}$#i", $Email ) ) $Error=$Error.'РђРґСЂРµСЃ e-mail РґРѕР»Р¶РµРЅ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ С„РѕСЂРјР°С‚Сѓ somebody@somewhere.ru<br>';
 
-// Если не были допущены ошибки при заполнении поля адрес отправителя
+// Р•СЃР»Рё РЅРµ Р±С‹Р»Рё РґРѕРїСѓС‰РµРЅС‹ РѕС€РёР±РєРё РїСЂРё Р·Р°РїРѕР»РЅРµРЅРёРё РїРѕР»СЏ Р°РґСЂРµСЃ РѕС‚РїСЂР°РІРёС‚РµР»СЏ
 if ( empty($Error) )
    { $xml=convert2xml($id_key);
      send_email($Email,$xml);
-     echo "<H1>Письмо успешно отправлено!!!</H1>";
-     echo '<form action="main.php"><input type=submit value="На главную"></form>';
+     echo "<H1>РџРёСЃСЊРјРѕ СѓСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅРѕ!!!</H1>";
+     echo '<form action="main.php"><input type=submit value="РќР° РіР»Р°РІРЅСѓСЋ"></form>';
      die;
    }
 
 }
 
 echo '<form name="" action="" method="post">';
-echo 'Укажите адрес получателя: <input type=text name="to" value="';
+echo 'РЈРєР°Р¶РёС‚Рµ Р°РґСЂРµСЃ РїРѕР»СѓС‡Р°С‚РµР»СЏ: <input type=text name="to" value="';
 if ( isset($Email) ) echo $Email.'">'; else echo '">';
-echo '<input type=submit value="Отправить">';
+echo '<input type=submit value="РћС‚РїСЂР°РІРёС‚СЊ">';
 echo '</form>';
 echo '<font color="red">'.$Error.'</font><br>';
-echo '<form action="main.php"><input type=submit value="На главную"></form>';
+echo '<form action="main.php"><input type=submit value="РќР° РіР»Р°РІРЅСѓСЋ"></form>';
 
 ?>
 

@@ -2,7 +2,7 @@
 
 <HTML>
 <HEAD>
-  <TITLE>База данных критически-важных объектов (КВО) (Версия для печати)</TITLE>
+  <TITLE>Р‘Р°Р·Р° РґР°РЅРЅС‹С… РєСЂРёС‚РёС‡РµСЃРєРё-РІР°Р¶РЅС‹С… РѕР±СЉРµРєС‚РѕРІ (РљР’Рћ) (Р’РµСЂСЃРёСЏ РґР»СЏ РїРµС‡Р°С‚Рё)</TITLE>
   <meta http-equiv=Content-Type content="text/html; charset=windows-1251">
   <link rel="shortcut icon" href="favicon.ico">
     <STYLE TYPE="text/css" TITLE="Cool table">
@@ -21,18 +21,18 @@ require_once "functions.php";
 
 Authorisation();
 
-// Поиск введенного значения в базе
+// РџРѕРёСЃРє РІРІРµРґРµРЅРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ РІ Р±Р°Р·Рµ
 $id_key=$_REQUEST['id_key'];
 $result=find_by_key ($id_key);
 
-// Получаем данные из базы в массив $data.
+// РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РёР· Р±Р°Р·С‹ РІ РјР°СЃСЃРёРІ $data.
 for ($data=array(); $row=mssql_fetch_assoc($result); $data[]=$row);
 
-// Вывод карточки на экран в виде таблицы
+// Р’С‹РІРѕРґ РєР°СЂС‚РѕС‡РєРё РЅР° СЌРєСЂР°РЅ РІ РІРёРґРµ С‚Р°Р±Р»РёС†С‹
 print_view ( trim($data[0]['shortname']), trim($data[0]['fullname']), trim($data[0]['email']), trim($data[0]['web']), trim($data[0]['object_value']),
 trim($data[0]['factory_value']), $data[0]['area'], $data[0]['wokers'], trim($data[0]['production']) );
 
-//echo '<br><input type="button" onClick="window.print()" value="     Печать     ">';
+//echo '<br><input type="button" onClick="window.print()" value="     РџРµС‡Р°С‚СЊ     ">';
 
 ?>
 <br>
@@ -40,7 +40,7 @@ trim($data[0]['factory_value']), $data[0]['area'], $data[0]['wokers'], trim($dat
 document.write("<input type='button' " +
 "onClick='window.print()' " +
 "class='printbutton' " +
-"value='     Печать     '/>");
+"value='     РџРµС‡Р°С‚СЊ     '/>");
 </script>
 
 

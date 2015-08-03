@@ -8,7 +8,7 @@ $id_key=$_REQUEST['id_key'];
 $result=find_by_key ($id_key);
 for ($data=array(); $row=mssql_fetch_assoc($result); $data[]=$row);
 
-// Создаем сессию для отправки на форму edit_form.php
+// РЎРѕР·РґР°РµРј СЃРµСЃСЃРёСЋ РґР»СЏ РѕС‚РїСЂР°РІРєРё РЅР° С„РѕСЂРјСѓ edit_form.php
 $_SESSION['edit_form']=array();
 $_SESSION['edit_form']['id_key']=$data[0]['id_key'];
 $_SESSION['edit_form']['ShortName']=trim($data[0]['shortname']);

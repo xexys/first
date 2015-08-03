@@ -5,7 +5,7 @@ require_once "functions.php";
 
 Authorisation();
 
-// Получили параметры из формы
+// РџРѕР»СѓС‡РёР»Рё РїР°СЂР°РјРµС‚СЂС‹ РёР· С„РѕСЂРјС‹
 $ShortName=$_REQUEST['ShortName'];
 $FullName=$_REQUEST['FullName'];
 $Email=$_REQUEST['Email'];
@@ -17,45 +17,46 @@ $Wokers=$_REQUEST['Wokers'];
 $Production=$_REQUEST['Production'];
 $Error="";
 
-// Проверяем форма не должны быть пустой
-if ( empty($ShortName) ) $Error=$Error.'Не заполнено поле "Краткое наименование"<br>';
-if ( empty($FullName) ) $Error=$Error.'Не заполнено поле "Полное название"<br>';
-   else if ( strlen($FullName)>200 ) $Error=$Error.'Значение поля "Полное название" превышает 200 символов<br>';
-if ( empty($Email) ) $Error=$Error.'Не заполнено поле "Електронная почта"<br>';
-   else if ( !preg_match( "#^[0-9a-z_\-\.]+@[0-9a-z\-\.]+\.[a-z]{2,6}$#i", $Email ) ) $Error=$Error.'Адрес e-mail должен соответствовать формату somebody@somewhere.ru<br>';
-if ( empty($WWW) ) $Error=$Error.'Не заполнено поле "Оффициальный сайт"<br>';
-   else if ( !preg_match( "#^(http:\/\/)?(www.)?[0-9a-z\-\.]+\.[a-z]{2,6}\/?$#i", $WWW ) ) $Error=$Error.'Поле "Оффициальный сайт" должно соответствовать формату http://www.offsite.ru</li><br>';
+// РџСЂРѕРІРµСЂСЏРµРј С„РѕСЂРјР° РЅРµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РїСѓСЃС‚РѕР№
+if ( empty($ShortName) ) $Error=$Error.'РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ "РљСЂР°С‚РєРѕРµ РЅР°РёРјРµРЅРѕРІР°РЅРёРµ"<br>';
+if ( empty($FullName) ) $Error=$Error.'РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ "РџРѕР»РЅРѕРµ РЅР°Р·РІР°РЅРёРµ"<br>';
+   else if ( strlen($FullName)>200 ) $Error=$Error.'Р—РЅР°С‡РµРЅРёРµ РїРѕР»СЏ "РџРѕР»РЅРѕРµ РЅР°Р·РІР°РЅРёРµ" РїСЂРµРІС‹С€Р°РµС‚ 200 СЃРёРјРІРѕР»РѕРІ<br>';
+if ( empty($Email) ) $Error=$Error.'РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ "Р•Р»РµРєС‚СЂРѕРЅРЅР°СЏ РїРѕС‡С‚Р°"<br>';
+   else if ( !preg_match( "#^[0-9a-z_\-\.]+@[0-9a-z\-\.]+\.[a-z]{2,6}$#i", $Email ) ) $Error=$Error.'РђРґСЂРµСЃ e-mail РґРѕР»Р¶РµРЅ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ С„РѕСЂРјР°С‚Сѓ somebody@somewhere.ru<br>';
+if ( empty($WWW) ) $Error=$Error.'РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ "РћС„С„РёС†РёР°Р»СЊРЅС‹Р№ СЃР°Р№С‚"<br>';
+   else if ( !preg_match( "#^(http:\/\/)?(www.)?[0-9a-z\-\.]+\.[a-z]{2,6}\/?$#i", $WWW ) ) $Error=$Error.'РџРѕР»Рµ "РћС„С„РёС†РёР°Р»СЊРЅС‹Р№ СЃР°Р№С‚" РґРѕР»Р¶РЅРѕ СЃРѕРѕС‚РІРµС‚СЃС‚РІРѕРІР°С‚СЊ С„РѕСЂРјР°С‚Сѓ http://www.offsite.ru</li><br>';
            else if (strpos($WWW,"http://")===false) $WWW='http://'.$WWW;
-if ( empty($Object_ID) ) $Error=$Error.'Не выбран "Тип объекта"<br>';
-if ( empty($Factory_ID) ) $Error=$Error.'Не выбран "Тип производства"<br>';
-if ( empty($Area) ) $Error=$Error.'Не заполнено поле "Занимаемая площадь"<br>';
-// Проверяем является-ли введенное число целым
+if ( empty($Object_ID) ) $Error=$Error.'РќРµ РІС‹Р±СЂР°РЅ "РўРёРї РѕР±СЉРµРєС‚Р°"<br>';
+if ( empty($Factory_ID) ) $Error=$Error.'РќРµ РІС‹Р±СЂР°РЅ "РўРёРї РїСЂРѕРёР·РІРѕРґСЃС‚РІР°"<br>';
+if ( empty($Area) ) $Error=$Error.'РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ "Р—Р°РЅРёРјР°РµРјР°СЏ РїР»РѕС‰Р°РґСЊ"<br>';
+// РџСЂРѕРІРµСЂСЏРµРј СЏРІР»СЏРµС‚СЃСЏ-Р»Рё РІРІРµРґРµРЅРЅРѕРµ С‡РёСЃР»Рѕ С†РµР»С‹Рј
    else
       { $str=$Area;
       	settype($str, "integer");
       	settype($str, "string");
-        if ($str!=$Area) $Error=$Error.'Значение поля "Занимаемая площадь" не является целым числом<br>';
+        if ($str!=$Area) $Error=$Error.'Р—РЅР°С‡РµРЅРёРµ РїРѕР»СЏ "Р—Р°РЅРёРјР°РµРјР°СЏ РїР»РѕС‰Р°РґСЊ" РЅРµ СЏРІР»СЏРµС‚СЃСЏ С†РµР»С‹Рј С‡РёСЃР»РѕРј<br>';
       }
 
-if ( empty($Wokers) ) $Error=$Error.'Не заполнено поле "Колличество сотрудников"<br>';
+if ( empty($Wokers) ) $Error=$Error.'РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ "РљРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ"<br>';
    else
-      { $str=$Wokers;      	settype($str, "integer");
+      { $str=$Wokers;
+      	settype($str, "integer");
       	settype($str, "string");
-        if ($str!=$Wokers) $Error=$Error.'Значение поля "Колличество сотрудников" не является целым числом<br>';
+        if ($str!=$Wokers) $Error=$Error.'Р—РЅР°С‡РµРЅРёРµ РїРѕР»СЏ "РљРѕР»Р»РёС‡РµСЃС‚РІРѕ СЃРѕС‚СЂСѓРґРЅРёРєРѕРІ" РЅРµ СЏРІР»СЏРµС‚СЃСЏ С†РµР»С‹Рј С‡РёСЃР»РѕРј<br>';
       }
 
-if ( empty($Production) ) $Error=$Error.'Не заполнено поле "Производимая продукция"<br>';
-   else if ( strlen($Production)>500 ) $Error=$Error.'Значение поля "Производимая продукция" превышает 500 символов<br>';
+if ( empty($Production) ) $Error=$Error.'РќРµ Р·Р°РїРѕР»РЅРµРЅРѕ РїРѕР»Рµ "РџСЂРѕРёР·РІРѕРґРёРјР°СЏ РїСЂРѕРґСѓРєС†РёСЏ"<br>';
+   else if ( strlen($Production)>500 ) $Error=$Error.'Р—РЅР°С‡РµРЅРёРµ РїРѕР»СЏ "РџСЂРѕРёР·РІРѕРґРёРјР°СЏ РїСЂРѕРґСѓРєС†РёСЏ" РїСЂРµРІС‹С€Р°РµС‚ 500 СЃРёРјРІРѕР»РѕРІ<br>';
 
-// Если форма не пустая, то проверка, нет ли в базе добавляемой записи
+// Р•СЃР»Рё С„РѕСЂРјР° РЅРµ РїСѓСЃС‚Р°СЏ, С‚Рѕ РїСЂРѕРІРµСЂРєР°, РЅРµС‚ Р»Рё РІ Р±Р°Р·Рµ РґРѕР±Р°РІР»СЏРµРјРѕР№ Р·Р°РїРёСЃРё
 if ( empty($Error) )
-   { // Определяем уникальный ключ для записи в базе
+   { // РћРїСЂРµРґРµР»СЏРµРј СѓРЅРёРєР°Р»СЊРЅС‹Р№ РєР»СЋС‡ РґР»СЏ Р·Р°РїРёСЃРё РІ Р±Р°Р·Рµ
      $id_key = md5 ( trim($ShortName).trim($FullName).trim($Email).trim($WWW).trim($Object_ID).trim($Factory_ID).trim($Area).trim($Wokers).trim($Production) );
      $result=insert_in_base ($id_key, $ShortName, $FullName, $Email, $WWW, $Object_ID, $Factory_ID, $Area, $Wokers, $Production);
-     if ($result!=true) $Error="Такая запись в базе уже существует!!!<br>";
+     if ($result!=true) $Error="РўР°РєР°СЏ Р·Р°РїРёСЃСЊ РІ Р±Р°Р·Рµ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚!!!<br>";
    }
 
-// Если были допущены ошибки при заполнении формы или добавлении в базу, то отправляем на форму введенные поля
+// Р•СЃР»Рё Р±С‹Р»Рё РґРѕРїСѓС‰РµРЅС‹ РѕС€РёР±РєРё РїСЂРё Р·Р°РїРѕР»РЅРµРЅРёРё С„РѕСЂРјС‹ РёР»Рё РґРѕР±Р°РІР»РµРЅРёРё РІ Р±Р°Р·Сѓ, С‚Рѕ РѕС‚РїСЂР°РІР»СЏРµРј РЅР° С„РѕСЂРјСѓ РІРІРµРґРµРЅРЅС‹Рµ РїРѕР»СЏ
 if ( !empty($Error) )
 {
 $_SESSION['add_form']=array();
@@ -75,31 +76,31 @@ die();
 
 unset($_SESSION['add_form']);
 
-// Поиск введенного значения в базе
+// РџРѕРёСЃРє РІРІРµРґРµРЅРЅРѕРіРѕ Р·РЅР°С‡РµРЅРёСЏ РІ Р±Р°Р·Рµ
 $result=find_by_key ($id_key);
-if (mssql_num_rows($result)!=1) { echo "<h2>Неизвестная ошибка!!!</h2>"; die; }
+if (mssql_num_rows($result)!=1) { echo "<h2>РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°!!!</h2>"; die; }
 
-echo "<h1>Запись добавлена!!!</h1>";
+echo "<h1>Р—Р°РїРёСЃСЊ РґРѕР±Р°РІР»РµРЅР°!!!</h1>";
 
-// Получаем данные из базы в массив $data.
+// РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РёР· Р±Р°Р·С‹ РІ РјР°СЃСЃРёРІ $data.
 for ($data=array(); $row=mssql_fetch_assoc($result); $data[]=$row);
 
-// Вывод карточки на экран в виде таблицы
+// Р’С‹РІРѕРґ РєР°СЂС‚РѕС‡РєРё РЅР° СЌРєСЂР°РЅ РІ РІРёРґРµ С‚Р°Р±Р»РёС†С‹
 view ( trim($data[0]['shortname']), trim($data[0]['fullname']), trim($data[0]['email']), trim($data[0]['web']), trim($data[0]['object_value']),
 trim($data[0]['factory_value']), $data[0]['area'], $data[0]['wokers'], trim($data[0]['production']) );
 
 echo '<br>';
 echo '<table width="550" border="0">';
 echo '<tr>';
-echo '   <td><form action="main.php"><input type=submit value="На главную"></form></td>';
-echo '   <td><form action="edit_form.php"><input type=submit value="Изменить"></form></td>';
-echo '   <td><form action="delete_script.php"><input type=hidden name="id_key" value="'.$data[0]['id_key'].'"><input type=submit value="Удалить"></form></td>';
-echo '   <td><form action="print_form.php" target="_blank"><input type=hidden name="id_key" value="'.$data[0]['id_key'].'"><input type=submit value="Версия для печати"></form></td>';
-echo '   <td><form action="email_form.php"><input type=hidden name="id_key" value="'.$data[0]['id_key'].'"><input type=submit value="Отправить по e-mail"></form></td>';
+echo '   <td><form action="main.php"><input type=submit value="РќР° РіР»Р°РІРЅСѓСЋ"></form></td>';
+echo '   <td><form action="edit_form.php"><input type=submit value="РР·РјРµРЅРёС‚СЊ"></form></td>';
+echo '   <td><form action="delete_script.php"><input type=hidden name="id_key" value="'.$data[0]['id_key'].'"><input type=submit value="РЈРґР°Р»РёС‚СЊ"></form></td>';
+echo '   <td><form action="print_form.php" target="_blank"><input type=hidden name="id_key" value="'.$data[0]['id_key'].'"><input type=submit value="Р’РµСЂСЃРёСЏ РґР»СЏ РїРµС‡Р°С‚Рё"></form></td>';
+echo '   <td><form action="email_form.php"><input type=hidden name="id_key" value="'.$data[0]['id_key'].'"><input type=submit value="РћС‚РїСЂР°РІРёС‚СЊ РїРѕ e-mail"></form></td>';
 echo '</tr>';
 echo '</table>';
 
-// Создаем сессию для отправки на форму edit_form.php
+// РЎРѕР·РґР°РµРј СЃРµСЃСЃРёСЋ РґР»СЏ РѕС‚РїСЂР°РІРєРё РЅР° С„РѕСЂРјСѓ edit_form.php
 $_SESSION['edit_form']=array();
 $_SESSION['edit_form']['id_key']=$data[0]['id_key'];
 $_SESSION['edit_form']['ShortName']=trim($data[0]['shortname']);

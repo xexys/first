@@ -8,16 +8,16 @@ require_once "functions.php";
 
 Authorisation();
 
-// Получили параметры из формы
+// РџРѕР»СѓС‡РёР»Рё РїР°СЂР°РјРµС‚СЂС‹ РёР· С„РѕСЂРјС‹
 
 unset( $_SESSION['edit_form'] );
 $id_key=$_REQUEST['id_key'];
 
 $result=delete_from_base($id_key);
-if ($result==true) echo "<H1>Запись удалена!!!</H1>";
-   else echo "echo <h2>Неизвестная ошибка!!!</h2>";
+if ($result==true) echo "<H1>Р—Р°РїРёСЃСЊ СѓРґР°Р»РµРЅР°!!!</H1>";
+   else echo "echo <h2>РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕС€РёР±РєР°!!!</h2>";
 
-echo '<form action="main.php"><input type=submit value="На главную"></form>';
+echo '<form action="main.php"><input type=submit value="РќР° РіР»Р°РІРЅСѓСЋ"></form>';
 
 ?>
 
